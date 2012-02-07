@@ -140,9 +140,9 @@ abstract class PearsonFile {
         $_s = function($key, $a=null) { return get_string($key, 'gradeimport_pearson', $a); };
         $_g = function($key) { return get_string($key, 'grades'); };
 
-        foreach ($this->moodle_ids_to_grades as $gi_id => $grades) {
-            $importcode = get_new_importcode();
+        $importcode = get_new_importcode();
 
+        foreach ($this->moodle_ids_to_grades as $gi_id => $grades) {
             $gi_params = array('id' => $gi_id, 'courseid' => $this->courseid);
 
             if (!$grade_item = grade_item::fetch($gi_params)) {
@@ -172,9 +172,9 @@ abstract class PearsonFile {
                     $this->messages[] = $_g('importfailed');
                 }
             }
-
-            return grade_import_commit($this->courseid, $importcode, false, false);
         }
+
+        return grade_import_commit($this->courseid, $importcode, false, false);
     }
 
     function process($headers_to_items) {
