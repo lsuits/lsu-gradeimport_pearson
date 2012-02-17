@@ -54,7 +54,7 @@ abstract class PearsonFile {
 
         $moodle_ids_to_field = array();
 
-        $users = get_role_users($roleids, $context, false, $fields);
+        $users = get_role_users($roleids, $context, false);
 
         $found_users = array();
 
