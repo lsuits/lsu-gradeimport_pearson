@@ -208,9 +208,15 @@ class PearsonMyLabFile extends PearsonFile {
 
             $fields = explode(',', $line);
 
+            array_pop($fields);
+
             $pawsid = ltrim(reset(explode('@', $fields[2])), '"');
 
             $grades = array_slice($fields, 5);
+
+            while (count($grades) < count($this->headers)) {
+                $grades[] = 0.000;
+            }
 
             foreach ($grades as $n => $grade) {
                 if (!isset($headers_to_grades[$n])) {
@@ -219,6 +225,10 @@ class PearsonMyLabFile extends PearsonFile {
 
                 if ($grade > 2.00) {
                     $percents = false;
+                }
+
+                if (!$grade) {
+                    $grade = 0.000;
                 }
 
                 $headers_to_grades[$n][$pawsid] = $grade;
