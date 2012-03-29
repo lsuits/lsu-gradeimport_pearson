@@ -2,6 +2,7 @@
 
 // General
 $string['pluginname'] = 'Pearson file';
+$string['pearson:view'] = 'View the Pearson importer';
 
 // Import Form
 $string['file'] = 'File';
