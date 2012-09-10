@@ -74,12 +74,12 @@ class pearson_mapping_form extends moodleform {
         $params = array('courseid' => $COURSE->id, 'locked' => False);
 
         $items = $DB->get_records('grade_items', $params, 'itemname asc',
-            'id, itemname, itemtype');
+            'id, itemname, itemtype, gradetype');
 
         $options = array(-1 => $_s('ignore_this_item'));
 
         foreach ($items as $n => $item) {
-            if ($item->itemtype == 'manual') {
+            if ($item->itemtype == 'manual' and $item->gradetype > 0) {
                 $options[$item->id] = $item->itemname;
             }
         }
