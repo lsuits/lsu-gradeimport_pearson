@@ -274,6 +274,8 @@ class PearsonMasteringFile extends PearsonFile {
 
         $headers_to_grades = array();
 
+        $percents = true;
+
         foreach ($keepers as $n => $line) {
             if (!$line) {
                 continue;
@@ -297,7 +299,23 @@ class PearsonMasteringFile extends PearsonFile {
                     $headers_to_grades[$n] = array();
                 }
 
+                if ($grade > 2.00) {
+                    $percents = false;
+                }
+
+                if (!$grade) {
+                    $grade = 0.000;
+                }
+
                 $headers_to_grades[$n][$username] = $grade;
+            }
+        }
+
+        if ($percents) {
+            foreach ($headers_to_grades as $i => $grades) {
+                foreach ($grades as $j => $user) {
+                    $headers_to_grades[$i][$j] *= 100;
+                }
             }
         }
 
