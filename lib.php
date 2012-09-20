@@ -22,6 +22,7 @@ abstract class PearsonFile {
     public $courseid;
     public $id_field;
     public $file_text;
+    public $file_text_fixed;
     public $headers = array();
     public $messages = array();
     public $ids_to_grades = array();
@@ -34,7 +35,8 @@ abstract class PearsonFile {
 
     function __construct($file_text, $courseid) {
         $this->file_text = $file_text;
-        $this->lines = explode("\n", $file_text);
+        $file_text_fixed = preg_replace("\r", "\n", $file_text);
+        $this->lines = explode("\n", $file_text_fixed);
 
         $this->id_field = $this->discern_id_field();
 
