@@ -17,7 +17,8 @@ class pearson_file_form extends moodleform {
 
         $mform->addElement('filepicker', 'userfile', $_s('file'));
         $mform->addRule('userfile', null, 'required');
-
+        $mform->setType('filepicker', PARAM_FILE);
+        
         $type_options = array(
             1 => $_s('my_math_lab'),
             2 => $_s('my_stat_lab'),
@@ -27,7 +28,7 @@ class pearson_file_form extends moodleform {
         );
 
         $mform->addElement('select', 'file_type', $_s('file_type'), $type_options);
-
+        $mform->setType('file_type', PARAM_INT);
         $this->add_action_buttons(false, $_s('upload_file'));
     }
 }
@@ -50,11 +51,15 @@ class pearson_mapping_form extends moodleform {
         $data = $this->_customdata;
 
         $file_text = isset($data['file_text']) ? $data['file_text'] : null;
+
         $file_type = isset($data['file_type']) ? $data['file_type'] : null;
-
+        
         $mform->addElement('hidden', 'file_text', $file_text);
+        $mform->setType('file_text', PARAM_TEXT);
+        
         $mform->addElement('hidden', 'file_type', $file_type);
-
+        $mform->setType('file_type', PARAM_INT);
+        
         $pearson_file = pearson_create_file($file_text, $file_type);
 
         $options = $this->get_grade_item_options();
