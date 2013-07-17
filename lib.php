@@ -194,7 +194,8 @@ class PearsonMyLabFile extends PearsonFile {
     }
 
     function parse($headers_to_items) {
-        $lines = explode("\n", reset(explode('Course:', $this->file_text)));
+        $exploded_on_course = explode('Course:', $this->file_text);
+        $lines = explode("\n", reset($exploded_on_course));
         $keepers = array_slice($lines, 5);
 
         $headers_to_grades = array();
@@ -209,8 +210,8 @@ class PearsonMyLabFile extends PearsonFile {
             $fields = explode(',', $line);
 
             array_pop($fields);
-
-            $pawsid = ltrim(reset(explode('@', $fields[2])), '"');
+            $expl_on_amp = explode('@', $fields[2]);
+            $pawsid = ltrim(reset($expl_on_amp), '"');
 
             $grades = array_slice($fields, 5);
 
