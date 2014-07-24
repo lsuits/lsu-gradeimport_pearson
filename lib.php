@@ -47,7 +47,7 @@ abstract class PearsonFile {
         $_s = function($key, $a) { return get_string($key, 'gradeimport_pearson', $a); };
 
         $roleids = explode(',', $CFG->gradebookroles);
-        $context = get_context_instance(CONTEXT_COURSE, $this->courseid);
+        $context = context_course::instance($this->courseid);
 
         $fields = 'u.id, u.' . $this->id_field;
 
