@@ -252,7 +252,8 @@ class PearsonMyLabFile extends PearsonFile {
 
 class PearsonMasteringFile extends PearsonFile {
     function preprocess_headers() {
-        return end(explode('Group(s),', $this->lines[3]));
+        $groups = explode('Group(s),', $this->lines[3]);
+        return end($groups);
     }
 
     function discern_id_field() {
