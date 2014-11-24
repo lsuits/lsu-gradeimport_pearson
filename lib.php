@@ -165,7 +165,10 @@ abstract class PearsonFile {
                 $newgrade->userid = $userid;
                 $newgrade->importcode = $importcode;
                 $newgrade->importer = $USER->id;
-                $newgrade->finalgrade = $grade;
+
+		// If we get garbage from the file, such as the string '--', don't choke on it.
+		$clean_float = clean_param($grade, PARAM_FLOAT);
+                $newgrade->finalgrade = $clean_float ? $clean_float : null;
 
                 if (!$DB->insert_record('grade_import_values', $newgrade)) {
                     $this->messages[] = $_g('importfailed');
@@ -252,6 +255,12 @@ class PearsonMyLabFile extends PearsonFile {
 
 class PearsonMasteringFile extends PearsonFile {
     function preprocess_headers() {
+
+        // This fn gets called twice; the first time around, 3 is an undefined offset.
+        if(empty($this->lines[3])){
+            return '';
+        }
+
         $groups = explode('Group(s),', $this->lines[3]);
         return end($groups);
     }
