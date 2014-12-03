@@ -168,7 +168,7 @@ abstract class PearsonFile {
 
 		// If we get garbage from the file, such as the string '--', don't choke on it.
 		$clean_float = clean_param($grade, PARAM_FLOAT);
-                $newgrade->finalgrade = $clean_float ? $clean_float : null;
+                $newgrade->finalgrade = $clean_float ? $clean_float : 0;
 
                 if (!$DB->insert_record('grade_import_values', $newgrade)) {
                     $this->messages[] = $_g('importfailed');
