@@ -53,7 +53,9 @@ class pearson_mapping_form extends moodleform {
         $file_type = isset($data['file_type']) ? $data['file_type'] : null;
 
         $mform->addElement('hidden', 'file_text', $file_text);
+        $mform->setType('file_text', PARAM_TEXT);
         $mform->addElement('hidden', 'file_type', $file_type);
+        $mform->setType('file_type', PARAM_TEXT);
 
         $pearson_file = pearson_create_file($file_text, $file_type);
 
