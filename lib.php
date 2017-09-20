@@ -303,7 +303,7 @@ class PearsonMasteringFile extends PearsonFile {
                     $percents = false;
                 }
 
-                if (!$grade) {
+                if (!$grade || $grade == '--') {
                     $grade = 0.000;
                 }
 
